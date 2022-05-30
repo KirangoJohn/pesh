@@ -21,56 +21,72 @@
 <div class="content">
 <div class="container-fluid">
 <div class="row">
-<div class="col-lg-6">
-<div class="card">
-<div class="card-body">
-<h5 class="card-title">No of Clients</h5>
-<p class="card-text">
+<div class="col-lg-3 col-6">
 
-</p>
-
+<div class="small-box bg-danger">
+<div class="inner">
+@foreach ($totals2 as $item1)
+<h3>{{ $item1->ids}}</h3>
+@endforeach
+<p>No. of Orders</p>
 </div>
+<div class="icon">
+<i class="ion ion-bag"></i>
 </div>
-<div class="card card-primary card-outline">
-<div class="card-body">
-<h5 class="card-title">Current Prices</h5>
-<p class="card-text">
-
-</p>
-
-</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 </div>
 </div>
 
-<div class="col-lg-6">
-<div class="card">
-<div class="card-header">
-<h5 class="m-0">Profit</h5>
-</div>
-<div class="card-body">
-<h6 class="card-title"></h6>
-<p class="card-text"></p>
-<a href="#" class="btn btn-primary"></a>
-</div>
-</div>
-<div class="card card-primary card-outline">
-<div class="card-header">
-<h5 class="m-0">Total Cartons Sold</h5>
-</div>
-<div class="card-body">
-<h6 class="card-title"></h6>
-<p class="card-text"></p>
-<a href="#" class="btn btn-primary"></a>
-</div>
-</div>
-</div>
- 
-</div>
+<div class="col-lg-3 col-6">
 
+<div class="small-box bg-success">
+<div class="inner">
+@foreach ($totals2 as $supplier)
+<h3><sup style="font-size: 20px">Ksh</sup>{{ $supplier->supplier}}</h3>
+@endforeach
+<p>Supplier Total</p>
+</div>
+<div class="icon">
+<i class="ion ion-stats-bars"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 </div>
 </div>
 
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-warning">
+<div class="inner">
+@foreach ($totals2 as $item)
+<h3>{{ $item->cartons}}</h3>
+@endforeach
+<p>Total Cartons Sold</p>
 </div>
+<div class="icon">
+<i class="ion ion-person-add"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+</div>
+
+<div class="col-lg-3 col-6">
+
+<!--div class="small-box bg-danger">
+<div class="inner">
+<h3></h3>
+<p></p>
+</div>
+<div class="icon">
+<i class="ion ion-pie-graph"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div-->
+</div>
+</div>
+</div>
+</div>
+</div>
+
 
 <!--div class="container">
     <div class="row justify-content-center">
