@@ -153,7 +153,7 @@ Nora Silvester
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-<a href="index3.html" class="brand-link">
+<a href="#" class="brand-link">
 <img src="" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
 <span class="brand-text font-weight-light">FRAMLIL GENERAL ENT</span>
 </a>
@@ -185,10 +185,15 @@ Nora Silvester
 
 <nav class="mt-2">
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
 <li class="nav-item">
-<a href="#" class="nav-link active">
-<i class="nav-icon fas fa-tachometer-alt"></i>
+<a href="{{url('home')}}" class="nav-link">
+<i class="nav-icon far fa-circle text-warning"></i>
+<p class="text">Dashboard</p>
+</a>
+</li>
+<li class="nav-item">
+<a href="#" class="nav-link">
+<i class="nav-icon fas fa-credit-card"></i>
 <p>
 Sales
 <i class="right fas fa-angle-left"></i>
@@ -197,26 +202,26 @@ Sales
 <ul class="nav nav-treeview">
 <li class="nav-item">
 <a href="{{url('cards/create')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>Start Sales</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('sales/create')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>Edit Sales</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('rejects')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>Rejects</p>
 </a>
 </li>
 </ul>
 </li>
 <li class="nav-item">
-<a href="" class="nav-link active">
+<a href="" class="nav-link">
 <i class="nav-icon fas fa-tachometer-alt"></i>
 <p>
 Settings
@@ -232,28 +237,28 @@ Settings
 </li>
 <li class="nav-item">
 <a href="{{url('prices/create')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>
 Add Prices</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('fruits/create')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>
 Add Fruits</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('sizes/create')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>
 Add sizes</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('weights/create')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>
 Add Weight</p>
 </a>
@@ -264,8 +269,8 @@ Add Weight</p>
 
 
 <li class="nav-item">
-<a href="" class="nav-link active">
-<i class="nav-icon fas fa-tachometer-alt"></i>
+<a href="" class="nav-link">
+<i class="nav-icon fas fa-file"></i>
 <p>
 Reports
 <i class="right fas fa-angle-left"></i>
@@ -274,20 +279,20 @@ Reports
 <ul class="nav nav-treeview">
 <li class="nav-item">
 <a href="{{url('framlils')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>Framelil Report</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('suppliers_report')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>
 Supplier Report</p>
 </a>
 </li>
 <li class="nav-item">
 <a href="{{url('inventories')}}" class="nav-link">
-<i class="far fa-circle nav-icon"></i>
+<i class="far fa-circle nav-icon text-warning"></i>
 <p>
 Inventory Report</p>
 </a>

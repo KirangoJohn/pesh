@@ -1,49 +1,34 @@
 @extends('layouts.master')
 @section('content')
    <div class="container">
-<div class="card card-warning">
+<div class="card card-danger">
 <div class="card-header">
-<h3 class="card-title">Step 2: Sell Point</h3>
+<h3 class="card-title">Edit Sales</h3>
 </div>
     <div class="row">
         <div class="col-sm-6">
-        <form method="post" action="{{ route('sales.store') }}">
+        <form method="post" action="">
         @csrf
             <div class="row">
             <div class="col-sm-6">
             <label for="gnr">GNR No:</label>
-                    <select name="gnr" class="form-control" required>
-                        <option value="" selected disabled>GNR No</option>
-                        @foreach ($cards1 as $key => $gnr)
-                            <option value="{{ $key }}"> {{ $gnr }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <input type="text" class="form-control" name="gnr" required/>
+            </div>
            
             <div class="col-sm-6">
             <label for="size">Size:</label>
-                    <select id="numb" name="size_id" class="form-control" required>
-                        <option value="" selected disabled>Select Size</option>
-                        @foreach ($sizes as $key => $size)
-                            <option value="{{ $key }}"> {{ $size }}</option>
-                        @endforeach
-                    </select>
+            <input type="text" class="form-control" name="size" required/>
           
         </div>
     
                 <div class="col-sm-6">
                  <label for="weight">Enter weight:</label>
-                 <input type="text" id="weight" class="form-control" name="weight" required/>
+                 <input type="text" class="form-control" name="weight" required/>
                 </div>
         
                 <div class="col-sm-6">
                     <label for="fruit">Select Fruit:</label>
-                    <select id="fruit" name="fruit_type" class="form-control" required>
-                        <option value="" selected disabled>Select Fruit</option>
-                        @foreach ($fruits as $key1 => $fruit)
-                            <option value="{{ $key1 }}"> {{ $fruit }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" name="weight" required/>
                 </div>
                 <div class="col-sm-6">
                  <label for="buying_price">Enter Buying Price:</label>
@@ -69,13 +54,7 @@
    
     <div class="col-sm-6">
         <div>
-        @foreach ($cards as $item)
-        <h4>Farmer Name:{{ $item->farmer }}</h4>
-        <h4>Vehicle No:{{ $item->vehicle_no }}</h4>
-        <h4>Date Processed: {{ $item->created_on }}</h4>
-        <h4>No of Crates: {{ $item->crates }}</h4>
-        <h4></h4>
-        @endforeach
+       
         </div>
   <div class="table-responsive">
         <table id="table" class="table">
@@ -94,16 +73,16 @@
                     <tr>
                       <thead>
                       <tbody>
-                      @foreach ($sales as $sale)
+                      
                         <tr>
-                          <td>{{ $sale->size }}</td>
-                          <td>{{ $sale->weight}}</td>
-                          <td>{{ $sale->buying_price}}</td>
-                          <td>{{ $sale->selling_price}}</td>
-                          <td>{{ $sale->cartons}}</td>
-                          <td>{{ $sale->sub_total}}</td>
-                          <td>{{ $sale->supplier_total}}</td>
-                          <td>{{ $sale->profit}}</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                           <td>
                                 <form >
                                             {{csrf_field()}}
@@ -112,29 +91,23 @@
                                             </form>
                             </td>
                         </tr>
-              @endforeach         
+                    
 </tbody>
 
 </table>
-<div>@foreach ($totals as $total1)
-    <h5>Supplier Total: <th>{{ $total1->Total}}</th></h5>
-    @endforeach
+<div>
+    <h5>Supplier Total: <th></th></h5>
+    
+    <h5>Framlil Price: <th></th></h5>
 
-    @foreach ($totals2 as $supplier)
-    <h5>Framlil Price: <th>{{ $supplier->supplier}}</th></h5>
-    @endforeach
+    <h5>Profit: <th></th></h5>
 
-    @foreach ($profits as $item2)
-    <h5>Profit: <th>{{ $item2->profit}}</th></h5>
-    @endforeach
+    <h5>Cartons: <th></th></h5>
 
-    @foreach ($cartons as $item)
-    <h5>Cartons: <th>{{ $item->Carton}}</th></h5>
-    @endforeach
 </div>
-<form action="{{ route('orders.store')}}" method="post">
+<form action="#" method="post">
             @csrf
-            <button class="btn btn-success" type="submit">Finish Transaction</button>
+            <button class="btn btn-success" type="submit">Finish Editing</button>
             </form>
 </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
 use DB;
 
 class OrderController extends Controller
@@ -12,9 +13,11 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($gnr)
     {
-        //
+        $data = DB::table('orders')->select('id', 'gnr', 'weight')->where('gnr' , $gnr)->get();
+        return response()->json($data);
+        return view('orders.index',compact('data'));
     }
 
     /**
@@ -49,7 +52,12 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+       //DB::select('select * FROM orders');
+       return Order::find($id);
+    }
+
+    public function toEdit(){
+
     }
 
     /**
@@ -60,7 +68,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        //$data = Order::findOrFail($id);
+        
     }
 
     /**
