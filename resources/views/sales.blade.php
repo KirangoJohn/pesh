@@ -105,11 +105,13 @@
                           <td>{{ $sale->supplier_total}}</td>
                           <td>{{ $sale->profit}}</td>
                           <td>
-                                <form >
-                                            {{csrf_field()}}
-                                            {{method_field('DELETE')}}
-                                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                            </form>
+                          <form action="{{ route('sales.destroy',$sale->id) }}" method="POST">
+   
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
               @endforeach         

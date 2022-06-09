@@ -34,7 +34,7 @@
                           <td>{{ $item->framlil }}</td>
                           <td>{{ $item->created_on }}</td>
                           <!--td><button class="btn btn-success" type="submit"><i class="fas fa-eye"></td-->
-                          <td><a href="/orders/{{$item->gnr}}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+                          <td><a href="/orders" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
                           <td>
                             <form action="{{ route('sales.destroy', $item->id)}}" method="post">
                             @csrf

@@ -36,11 +36,12 @@ class CardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        
         $validatedData = $request->validate([
             'farmer' => 'required',
             'national_id' => 'required',
-            'gnr' => 'required',
+            'gnr' => 'required|unique:cards',
             'crates' => 'required',
             'vehicle_no' => 'required',
             'phone' => 'required',

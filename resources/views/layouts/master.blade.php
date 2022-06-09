@@ -207,7 +207,7 @@ Sales
 </a>
 </li>
 <li class="nav-item">
-<a href="{{url('sales/create')}}" class="nav-link">
+<a href="{{url('orders')}}" class="nav-link">
 <i class="far fa-circle nav-icon text-warning"></i>
 <p>Edit Sales</p>
 </a>
@@ -307,7 +307,7 @@ Inventory Report</p>
 </aside>
 
 <div class="content-wrapper">
-
+@include('flash-message')
 @yield('content')
 
 <aside class="control-sidebar control-sidebar-dark">

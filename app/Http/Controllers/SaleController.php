@@ -30,6 +30,8 @@ class SaleController extends Controller
         // FROM sales');
          $cartons = DB::select('select sum(cartons) as Carton FROM sales');
 
+         $orders = DB::select('SELECT orders.id,orders.weight, orders.cartons, orders.buying_price, orders.selling_price, sizes.id, sizes.size,orders.sub_total,orders.supplier_total,orders.profit, orders.gnr FROM orders INNER JOIN sizes ON orders.size_id = sizes.id;');
+
          
         return view('sales', compact('cards1','sizes', 'fruits', 'cards', 'sales', 'totals','cartons','totals2','profits'));
     }
@@ -139,16 +141,14 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $id)
+    public function destroy(Sale $sale)
     {
-        $sales = Sale::findOrFail($id);
-        $sales->delete();
+        $sale->delete();
+        return redirect('sales');
     }
 
-    public function delete($id)
+    public function delete(Sale $sale)
     {
-        $sales = Sale::find($id);
-        $sales->delete();
-        return redirect('sales');
+       
     }
 }

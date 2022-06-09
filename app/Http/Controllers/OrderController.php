@@ -13,11 +13,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($gnr)
+    public function index()
     {
-        $data = DB::table('orders')->select('id', 'gnr', 'weight')->where('gnr' , $gnr)->get();
-        return response()->json($data);
-        return view('orders.index',compact('data'));
+        $orders = Order::all();
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -68,7 +67,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //$data = Order::findOrFail($id);
+        $orders = Order::findOrFail($id);
+        return view('orders.edit', compact('orders'));
         
     }
 
