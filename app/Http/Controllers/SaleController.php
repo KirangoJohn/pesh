@@ -18,12 +18,12 @@ class SaleController extends Controller
     public function index()
     {   
         $sizes = DB::table("sizes")->pluck("size", "id");
-        $fruits = DB::table("fruits")->pluck("name", "id");
+        $fruits = DB::table("fruits")->pluck("name", "name");
       
         //$cards1=Card::orderBy('created_at', 'desc')->pluck("gnr", "gnr")->first();
         $cards1 = DB::table("cards")->orderBy('id', 'DESC')->pluck("gnr", "gnr")->take(1);
         $cards= DB::select('SELECT cards.vehicle_no, cards.gnr, cards.created_on, cards.farmer, cards.crates, cards.created_on FROM cards ORDER BY cards.id DESC LIMIT 1; ');
-        $sales= DB::select('SELECT sales.id,sales.weight, sales.cartons, sales.buying_price, sales.selling_price, sizes.id, sizes.size,sales.sub_total,sales.supplier_total,sales.profit, sales.gnr FROM sales INNER JOIN sizes ON sales.size_id = sizes.id;');
+        $sales= DB::select('SELECT sales.id,sales.weight, sales.cartons, sales.buying_price, sales.selling_price, sizes.id as si, sizes.size,sales.fruit_type,sales.sub_total,sales.supplier_total,sales.profit, sales.gnr FROM sales INNER JOIN sizes ON sales.size_id = sizes.id;');
         $totals = DB::select('select sum(sub_total) as Total FROM sales');
        $totals2 = DB::select('select sum(supplier_total) as supplier FROM sales');
         $profits = DB::select('select sum(profit) as profit FROM sales');
@@ -141,14 +141,12 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $sale)
+    public function destroy($id)
     {
-        $sale->delete();
+        $sales = Sale::findOrFail($id);
+        $sales->delete();
+
         return redirect('sales');
     }
 
-    public function delete(Sale $sale)
-    {
-       
-    }
 }

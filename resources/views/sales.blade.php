@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-   <div class="container">
+<div class="container">
 <div class="card card-warning">
 <div class="card-header">
 <h3 class="card-title">Step 2: Sell Point</h3>
@@ -86,6 +86,7 @@
                     <th>Buying Price</th>
                     <th>Selling Price</th>
                     <th>Cartons</th>
+                    <th>Fruit</th>
                     <th>Buying Sub Total</th>
                     <th>Supplier Sub Total</th>
                     <th>Profit</th>
@@ -101,17 +102,16 @@
                           <td>{{ $sale->buying_price}}</td>
                           <td>{{ $sale->selling_price}}</td>
                           <td>{{ $sale->cartons}}</td>
+                          <td>{{ $sale->fruit_type}}</td>
                           <td>{{ $sale->sub_total}}</td>
                           <td>{{ $sale->supplier_total}}</td>
                           <td>{{ $sale->profit}}</td>
                           <td>
-                          <form action="{{ route('sales.destroy',$sale->id) }}" method="POST">
-   
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                          <form action="{{ route('sales.destroy', $sale->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
                             </td>
                         </tr>
               @endforeach         

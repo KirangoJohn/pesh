@@ -25,8 +25,8 @@ class CardController extends Controller
      */
     public function create()
     {
-        $farmers = DB::table("farmers")->pluck("name", "name");
-        return view('cards.create', compact('farmers'));
+        //$farmers = DB::table("farmers")->pluck("name", "name");
+        return view('cards.create');
     }
 
     /**

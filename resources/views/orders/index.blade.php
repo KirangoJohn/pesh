@@ -14,9 +14,12 @@
                     <th>GNR No.</th>
                     <th>Size</th>
                     <th>Weight</th>
+                    <!--th>Fruit</th-->
                     <th>Cartons</th>
                     <th>Buying Price</th>
                     <th>Selling Price</th>
+                    <th>Supplier</th>
+                    <th>Framril</th>
                     <th>Profit</th>
                     <th colspan="2"></th>
 </thead>
@@ -24,12 +27,15 @@
 @foreach($orders as $order)
 <tr>
                          <td>{{$order->gnr}}</td>
+                         <td>{{$order->size}}</td>
                          <td>{{$order->weight}}</td>
+                         <!--td>{{$order->fruit_type}}</td-->
                          <td>{{$order->cartons}}</td>
                          <td>{{$order->buying_price}}</td>
                          <td>{{$order->selling_price}}</td>
                          <td>{{$order->sub_total }}</td>
                          <td>{{$order->supplier_total}}</td>
+                         <td>{{$order->profit}}</td>
                          <td><a href="{{ route('orders.edit', $order->id)}}" class="btn btn-primary">Edit</a></td>
                         <td>
                         <form action="{{ route('orders.destroy', $order->id)}}" method="post">

@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = DB::select('SELECT orders.id,orders.weight, orders.cartons, orders.buying_price, orders.selling_price, sizes.id as si, sizes.size,orders.fruit_type,orders.sub_total,orders.supplier_total,orders.profit, orders.gnr FROM orders INNER JOIN sizes ON orders.size_id = sizes.id;');
         return view('orders.index', compact('orders'));
     }
 
@@ -67,8 +67,10 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+        $sizes = DB::table("sizes")->pluck("size", "id");
+        $fruits = DB::table("fruits")->pluck("name", "name");
         $orders = Order::findOrFail($id);
-        return view('orders.edit', compact('orders'));
+        return view('orders.edit', compact('orders','sizes','fruits'));
         
     }
 
@@ -81,7 +83,32 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $gnr  = $request->input('gnr');
+        $size_id = $request->input('size_id');
+        $weight = $request->input('weight');
+        $cartons  = $request->input('cartons');
+        $fruit_type = $request->input('fruit_type');
+        $buying_price = $request->input('buying_price');
+        $selling_price = $request->input('selling_price');
+        if($size_id <= 12 && $weight == 10){
+            $sub_total = ($buying_price*2.5)*$cartons;
+        }else{
+            $sub_total = $buying_price*$cartons;
+        }
+        if($size_id <= 12 && $weight == 10){
+            $supplier_total = ($selling_price*2.5)*$cartons;
+        }else{
+            $supplier_total = $selling_price*$cartons;
+        }
+        if($size_id <= 12 && $weight == 10){
+        $profit = ($selling_price*2.5*$cartons)-($buying_price*2.5*$cartons);
+    }else{
+        $profit = ($selling_price*$cartons)-($buying_price*$cartons);
+    }
+        DB::update('update orders set gnr=?,size_id=?, weight=?, cartons=?, fruit_type=?, buying_price=?, selling_price=?, sub_total=?, profit=?,supplier_total=? WHERE id=?', 
+        [$gnr, $size_id, $weight, $cartons,$fruit_type, $buying_price, $selling_price, $sub_total, $profit, $supplier_total, $id]);
+     
+        return redirect('orders');
     }
 
     /**
