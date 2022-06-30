@@ -7,6 +7,23 @@
 <h3 class="card-title">Edit Sales</h3>
 </div>
 <div class="card-body">
+<form action="{{ route('orders.index') }}" method="GET">
+<div class="form-group">
+<div class="row">
+<div class="col-sm-8">
+    <input type="text" name="search" placeholder="Search" class="form-control">
+</div>
+<div class="col-sm-4">
+    <button class="btn btn-primary" type="submit">Search</button> 
+    <form action="{{ route('orders.index') }}">
+  <button class="btn btn-success" type="submit">Referesh</button>
+  <button onclick="window.print()">Print this page</button>
+</form>  
+</div>
+</div>
+</div>
+
+</form>
 
 <table class="table table-bordered">
 <thead>
@@ -45,8 +62,13 @@
 </tr>
 @endforeach   
 </tbody>
-
 </table>
+<script type="text/javascript">
+    $('#search').on('keyup',function()
+    {
+        alert('John Maina');
+    })
+</script>
 </div>
 </div>
 </div>

@@ -36,7 +36,7 @@
         <div class="col-sm-4">
           <div class="form-group">
               <label for="vehicle_no" class="mr-sm-2">Enter Vehicle No. Plate:</label>
-              <input type="text" class="form-control mb-2 mr-sm-2" name="vehicle_no" placeholder="Vehicle Reg" required/>
+              <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control mb-2 mr-sm-2" name="vehicle_no" placeholder="Vehicle Reg" required/>
           </div>
 </div>
 <div class="col-sm-4">

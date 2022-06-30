@@ -15,19 +15,18 @@ class InventoryReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        /*$inventories= DB::select('select cards.gnr, cards.vehicle_no, cards.farmer, cards.crates, orders.sub_total as subtotal, orders.supplier_total as supplier, orders.profit as profit, cards.created_on, orders.gnr, orders.cartons FROM orders INNER JOIN cards ON orders.gnr = cards.gnr');*/
-        $inventories=DB::select('select cards.gnr, cards.vehicle_no, cards.farmer, cards.crates, sum(orders.sub_total) as supplier, sum(orders.supplier_total) as framlil, sum(orders.profit) as profit, sum(orders.cartons) as cartons, cards.created_on, orders.gnr
-        from orders   
-        inner join cards
-        on orders.gnr = cards.gnr
-        group by orders.gnr
-        order by cards.created_on;');
-
+        $search = $request->get('search');
+          $inventories = DB::table('cards')
+          ->leftJoin('orders', 'cards.gnr', '=', 'orders.gnr')
+          ->select('cards.gnr', 'cards.farmer','cards.vehicle_no', 'cards.crates', \DB::raw("SUM(cartons) as cartons"), \DB::raw("SUM(supplier_total) as supplier_total"),\DB::raw("SUM(orders.profit) as profit"),\DB::raw("SUM(orders.sub_total) as sub_total"),'cards.created_on')
+         ->where('cards.created_on', 'LIKE', "%{$search}%")
+         //->where('cards.created_on', '=', date('Y-m-d'))
+          ->groupBy('orders.gnr')
+          ->get();
         $totals = DB::select('select sum(sub_total) as supplier , sum(supplier_total) as framlil, sum(profit) as profit FROM orders');
-        
-
+        //dd($inventories);
         return view('inventories.index',compact('inventories','totals'));
     }
     public function generatePDF()

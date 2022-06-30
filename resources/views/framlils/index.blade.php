@@ -1,18 +1,16 @@
 @extends('layouts.master')
 @section('content')
+<button onclick="window.print()">Print this Report</button>
 <div class="container">
+Framlil Report
 
-<div class="card">
-<div class="card-header">
-<h3 class="card-title">Framlil Report</h3>
-</div>
-<div class="card-body">
 @foreach ($totals as $item1)
     <h5>Supplier Total: {{ $item1->supplier}}</h5>
     <h5>Framlil Total: {{ $item1->framlil}}</h5>
     <!--h5>Profit Total: {{ $item1->profit}}</h5-->
         @endforeach
-        <div><a href="{{url('framlil/framlilsPDF')}}">Download PDF</a></div>
+        <!--div><a href="{{url('framlil/framlilsPDF')}}">Download PDF</a></div-->
+        
 <table class="table table-bordered">
 <thead>
                 <tr>
@@ -44,7 +42,5 @@
 
 </table>
 </div>
-</div>
-</div>
-</div>
+
 @endsection

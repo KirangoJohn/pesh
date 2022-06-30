@@ -13,10 +13,20 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = DB::select('SELECT orders.id,orders.weight, orders.cartons, orders.buying_price, orders.selling_price, sizes.id as si, sizes.size,orders.fruit_type,orders.sub_total,orders.supplier_total,orders.profit, orders.gnr FROM orders INNER JOIN sizes ON orders.size_id = sizes.id;');
+        /*$orders = DB::select('SELECT orders.id,orders.weight, orders.cartons, orders.buying_price, orders.selling_price, sizes.id as si, sizes.size,orders.fruit_type,orders.sub_total,orders.supplier_total,orders.profit, orders.gnr FROM orders INNER JOIN sizes ON orders.size_id = sizes.id;');
+        return view('orders.index', compact('orders'));*/
+        
+        $search = $request->get('search');
+
+        $orders = DB::table('orders')
+        ->leftJoin('sizes', 'orders.size_id', '=', 'sizes.id')
+        ->select('orders.id','orders.weight', 'orders.cartons', 'orders.buying_price', 'orders.selling_price', 'sizes.id as si', 'sizes.size','orders.fruit_type','orders.sub_total','orders.supplier_total','orders.profit', 'orders.gnr')
+        ->where('orders.gnr', 'LIKE', "%{$search}%")
+        ->get();
         return view('orders.index', compact('orders'));
+
     }
 
     /**
@@ -37,8 +47,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        DB::insert ('INSERT INTO export.orders SELECT * from export.sales');
-        DB::table('sales')->truncate();
+        //DB::insert('insert into export.sales (gnr,size_id, weight, cartons, fruit_type, buying_price, selling_price, sub_total, profit,supplier_total)   SELECT gnr,size_id, weight, cartons, fruit_type, buying_price, selling_price, sub_total, profit,supplier_total from export.sales');
+        DB::insert ('INSERT INTO orders SELECT * from export.sales');
+        DB::table('sales')->delete();
 
         return redirect('cards/create');
     }
@@ -119,6 +130,9 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->delete();
+
+        return redirect('orders')->with('success', 'Data is successfully deleted');
     }
 }
