@@ -13,9 +13,28 @@ class SupplierReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $inventories=DB::select('select cards.gnr, cards.vehicle_no, cards.farmer, cards.crates, sum(orders.sub_total) as supplier, sum(orders.supplier_total) as framlil, sum(orders.profit) as profit, sum(orders.cartons) as cartons, cards.created_on, orders.gnr
+        $search = $request->get('search');
+          $inventories = DB::table('cards')
+          ->select('cards.gnr', 'cards.farmer','cards.vehicle_no', 'cards.crates', \DB::raw("SUM(cartons) as cartons"), \DB::raw("SUM(supplier_total) as supplier_total"),\DB::raw("SUM(orders.profit) as profit"),\DB::raw("SUM(orders.sub_total) as sub_total"),'cards.created_on')
+          ->join('orders', 'cards.gnr', '=', 'orders.gnr')
+          ->where('cards.created_on', 'LIKE', "%{$search}%")
+         //->where('cards.created_on', '=', date('Y-m-d'))
+          ->groupBy('orders.gnr')
+          ->get();
+          $totals = DB::table('cards')
+          ->select('cards.gnr', 'cards.farmer','cards.vehicle_no', 'cards.crates', \DB::raw("SUM(cartons) as cartons"), \DB::raw("SUM(supplier_total) as supplier"),\DB::raw("SUM(orders.profit) as profit"),\DB::raw("SUM(orders.sub_total) as framlil"),'cards.created_on')
+          ->join('orders', 'cards.gnr', '=', 'orders.gnr')
+          ->where('cards.created_on', 'LIKE', "%{$search}%")
+         //->where('cards.created_on', '=', date('Y-m-d'))
+          //->groupBy('orders.gnr')
+          ->get();
+
+        return view('framlils.index',compact('inventories','totals')); 
+
+
+        /*$inventories=DB::select('select cards.gnr, cards.vehicle_no, cards.farmer, cards.crates, sum(orders.sub_total) as supplier, sum(orders.supplier_total) as framlil, sum(orders.profit) as profit, sum(orders.cartons) as cartons, cards.created_on, orders.gnr
         from orders   
         inner join cards
         on orders.gnr = cards.gnr
@@ -25,7 +44,7 @@ class SupplierReportController extends Controller
         $totals = DB::select('select sum(sub_total) as supplier , sum(supplier_total) as framlil, sum(profit) as profit FROM orders');
         
 
-        return view('suppliers_report.index',compact('inventories','totals'));
+        return view('suppliers_report.index',compact('inventories','totals'));*/
     }
     public function generatePDF()
     {
@@ -44,6 +63,26 @@ class SupplierReportController extends Controller
           
         $pdf = PDF::loadView('suppliers_report.supplierPDF',compact('inventories','totals'), $data);
         return $pdf->download('Supplier Report.pdf');
+    }
+
+    public function Search(Request $request){
+       // $fromDate = $request->input('fromDate');
+       // $toDate = $request->input('toDate');
+        
+
+        $query= DB::table('orders')->select()
+       // ->where('created_on', '>=', $fromDate)
+       // ->where('created_on', '>=', $toDate)
+        ->get();
+
+        $supp = DB::table('cards')
+        ->select('cards.farmer', 'cards.crates', 'orders.gnr')
+        ->join('orders','cards.gnr','=','orders.gnr')
+        ->get();
+
+        //dd($query);
+
+        return view('suppliers_report.report', compact('query','supp'));
     }
 
     /**

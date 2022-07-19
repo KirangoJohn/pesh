@@ -13,9 +13,27 @@ class FramlilReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $inventories=DB::select('select cards.gnr, cards.vehicle_no, cards.farmer, cards.crates, sum(orders.sub_total) as supplier, sum(orders.supplier_total) as framlil, sum(orders.profit) as profit, sum(orders.cartons) as cartons, cards.created_on, orders.gnr
+        $search = $request->get('search');
+          $inventories = DB::table('cards')
+          ->select('cards.gnr', 'cards.farmer','cards.vehicle_no', 'cards.crates', \DB::raw("SUM(cartons) as cartons"), \DB::raw("SUM(supplier_total) as supplier_total"),\DB::raw("SUM(orders.profit) as profit"),\DB::raw("SUM(orders.sub_total) as sub_total"),'cards.created_on')
+          ->join('orders', 'cards.gnr', '=', 'orders.gnr')
+          ->where('cards.created_on', 'LIKE', "%{$search}%")
+         //->where('cards.created_on', '=', date('Y-m-d'))
+          ->groupBy('orders.gnr')
+          ->get();
+          $totals = DB::table('cards')
+          ->select('cards.gnr', 'cards.farmer','cards.vehicle_no', 'cards.crates', \DB::raw("SUM(cartons) as cartons"), \DB::raw("SUM(supplier_total) as supplier"),\DB::raw("SUM(orders.profit) as profit"),\DB::raw("SUM(orders.sub_total) as framlil"),'cards.created_on')
+          ->join('orders', 'cards.gnr', '=', 'orders.gnr')
+          ->where('cards.created_on', 'LIKE', "%{$search}%")
+         //->where('cards.created_on', '=', date('Y-m-d'))
+          //->groupBy('orders.gnr')
+          ->get();
+
+        return view('suppliers_report.index',compact('inventories','totals')); 
+
+        /*$inventories=DB::select('select cards.gnr, cards.vehicle_no, cards.farmer, cards.crates, sum(orders.sub_total) as supplier, sum(orders.supplier_total) as framlil, sum(orders.profit) as profit, sum(orders.cartons) as cartons, cards.created_on, orders.gnr
         from orders   
         inner join cards
         on orders.gnr = cards.gnr
@@ -24,7 +42,7 @@ class FramlilReportController extends Controller
 
         $totals = DB::select('select sum(sub_total) as supplier , sum(supplier_total) as framlil, sum(profit) as profit FROM orders');
         
-        return view('framlils.index',compact('inventories','totals'));
+        return view('framlils.index',compact('inventories','totals'));*/
     }
 
     public function generatePDF()

@@ -35,11 +35,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     </address>
     </div>
     <p>Date Printed: {{ $date }}</p>
-    @foreach ($totals as $item1)
-    <strong>Supplier Total: {{ $item1->supplier}}</strong><br>
-    <strong>Framlil Total: {{ $item1->framlil}}</strong><br>
-    <strong>Profit Total: {{ $item1->profit}}</strong><br>
-        @endforeach
+    
        
         <div class="row">
 <div class="table-responsive">
